@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Custom element</title>
+    <script src="build.js?4"></script>
+  </head>
+  <body>
+    <hello-element></hello-element>
+
+    <script>
+      NewElement('hello-element', null, {
+
+        attachedCallback: function () {
+          this.textContent = 'Hello Custom Element';
+        },
+
+        addMoretext: function (s) {
+          this.textContent = this.textContent + s;
+        }
+      });
+    </script>
+  </body>
+</html>

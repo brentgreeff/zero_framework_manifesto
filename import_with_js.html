@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Html import</title>
+    <script src="build.js"></script>
+    <script type="text/javascript">
+
+      (function() {
+        'use strict';
+
+        function importHtml(path) {
+          var html_import = document.createElement('link');
+          html_import.rel = 'import';
+
+          var cache_buster = Math.random().toString().replace('.', '');
+          html_import.href = path + '?cache_buster=' + cache_buster;
+          document.head.appendChild( html_import );
+
+          return html_import;
+        }
+
+        var html_import = new importHtml('src/components/hello.html');
+
+        html_import.onload = function (e) {
+          var template = html_import.import.querySelector('template');
+          var fragment = document.importNode( template.content, true );
+          document.body.appendChild( fragment );
+        }
+        html_import.onerror = function (e) {
+          console.log("error loading import");
+        }
+      }());
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

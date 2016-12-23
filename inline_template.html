@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Inline template</title>
+  </head>
+  <body>
+    <template>
+      <div>Hello world!</div>
+    </template>
+
+    <button onclick="sayHello()">Say Hello</button>
+
+    <script>
+      (function () {
+        var template = document.querySelector('template');
+
+        function sayHello() {
+          var fragment = document.importNode( template.content, true );
+          document.body.appendChild( fragment );
+        }
+        window.sayHello = sayHello;
+      })();
+    </script>
+  </body>
+</html>
