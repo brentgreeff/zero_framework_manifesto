@@ -24,7 +24,7 @@ Context.prototype.fragment = function () {
 NewElement = function(name, template_context, attr) {
   var newElemProto = Object.create( HTMLElement.prototype );
 
-  if (template_context) {
+  if ( template_context ) {
     newElemProto.createdCallback = function () {
       this.appendChild( template_context.template().fragment() );
     }
