@@ -21,12 +21,12 @@ Context.prototype.fragment = function () {
 
 //
 
-NewElement = function(name, context, attr) {
+NewElement = function(name, template_context, attr) {
   var newElemProto = Object.create( HTMLElement.prototype );
 
-  if (context) {
+  if (template_context) {
     newElemProto.createdCallback = function () {
-      this.appendChild( context.template().fragment() );
+      this.appendChild( template_context.template().fragment() );
     }
   }
 
