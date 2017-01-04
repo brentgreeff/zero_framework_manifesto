@@ -5,28 +5,24 @@ Context = function () {
   this.ownerDoc = current_script.ownerDocument;
 };
 
-Context.prototype.loadTemplate = function (ref) {
-  this.template = this.ownerDoc.querySelector( ref );
-};
-
-Context.prototype.template = function (selector) {
+Context.prototype.loadTemplate = function (selector) {
   if ( selector == null ) { selector = 'template' }
-  this.loadTemplate( selector );
-  return this;
+
+  template = this.ownerDoc.querySelector( selector );
+
+  template.fragment = function () {
+    return document.importNode( template.content, true );
+  }
+  return template;
 };
-
-Context.prototype.fragment = function () {
-  return document.importNode( this.template.content, true );
-}
-
-//
 
 NewElement = function(name, attr) {
   var newElemProto = Object.create( HTMLElement.prototype );
   template_context = new Context();
 
   newElemProto.createdCallback = function () {
-    this.appendChild( template_context.template().fragment() );
+    template = template_context.loadTemplate();
+    this.appendChild( template.fragment() );
   }
 
   Object.keys(attr).forEach(function (key) {
