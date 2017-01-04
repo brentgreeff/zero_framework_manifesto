@@ -3,15 +3,13 @@
 </template>
 
 <script>
-
   (function () {
     'use strict';
-    NewElement('toggle-next', new Context(), {
+    NewElement('toggle-next', {
 
       attachedCallback: function () {
         this.button = this.querySelector('button');
         this.button.addEventListener('click', this._buttonClick.bind( this ) );
-
         this.next = this.nextElementSibling;
       },
 
