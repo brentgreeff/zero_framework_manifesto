@@ -1,0 +1,50 @@
+<template>
+  <button data-key="pop">Sort on population</button>
+  <button data-key="density">Sort on Density</button>
+  <button data-key="change">Sort on % change</button>
+</template>
+
+<script>
+  (function() {
+    'use strict';
+    NewElement('sort-stuff', {
+
+      attachedCallback: function () {
+        this.addEventListener('click', this._sort.bind( this ));
+      },
+
+      _sort: function (e) {
+        this.sort_by = e.target.dataset.key;
+        if (!this.sort_by) { return; }
+
+        var target_id = "#" + this.dataset.target;
+        var target = document.querySelector( target_id );
+
+        var elements = this._packageForSorting( target.children );
+        elements.sort(this._orderDesc);
+
+        elements.forEach(function (elem) {
+          target.appendChild(elem.node);
+        });
+      },
+
+      _orderDesc: function (x, y) {
+        return (x.value == y.value ? 0 : (x.value < y.value ? 1 : -1) );
+      },
+
+      _packageForSorting: function (children) {
+        var results = [];
+
+        for (var i = 0; i < children.length; i++) {
+          var current = children[i];
+
+          results.push({
+            value: +current.dataset[this.sort_by],
+            node: current
+          });
+        };
+        return results;
+      }
+    });
+  })();
+</script>
