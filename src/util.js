@@ -1,7 +1,8 @@
 
 Context = function () {
-  var current_script = document.currentScript || document._currentScript
+  var current_script = document.currentScript || document._currentScript;
   if (current_script == null) { throw 'currentScript is null' }
+
   this.ownerDoc = current_script.ownerDocument;
 };
 
@@ -29,4 +30,4 @@ NewElement = function(name, attr) {
     newElemProto[key] = attr[key];
   });
   document.registerElement(name, { prototype: newElemProto });
-}
+};
